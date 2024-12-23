@@ -14,8 +14,19 @@ import java.util.regex.Matcher;
 
 
 public class AutoAcc {
+    public HashMap<Integer, HashMap<String, Double[]>> getYearAcc() {
+        return yearAcc;
+    }
+
+    public HashMap<Integer, HashMap<Integer, HashMap<String, HashMap<String, Double>>>> getMonthAcc() {
+        return monthAcc;
+    }
+
     public AutoAcc() {
     }
+
+    private HashMap<Integer,HashMap<String,Double[]>> yearAcc = new HashMap<>();
+    private HashMap<Integer,HashMap<Integer,HashMap<String,HashMap<String,Double>>>> monthAcc = new HashMap<>();
 
     public static void main(String[] arg) {
         AutoAcc autoAcc = new AutoAcc();
@@ -24,7 +35,7 @@ public class AutoAcc {
         boolean running = true;
         Scanner scanner = new Scanner(System.in);
         while (running) {
-            System.out.println("Enter command:\n1 - Monthly Report\n2-Year Report\n3 - Check Consistency\n4 - Exit");
+            System.out.println("Enter command:\n1 - Monthly Report\n2 - Year Report\n3 - Check Consistency\n4 - Exit");
             int userInput = scanner.nextInt();
             switch (userInput) {
                 case 1:
@@ -54,9 +65,6 @@ public class AutoAcc {
             this.total = 0.0;
         }
     }
-
-    private HashMap<Integer,HashMap<String,Double[]>> yearAcc = new HashMap<>();
-    private HashMap<Integer,HashMap<Integer,HashMap<String,HashMap<String,Double>>>> monthAcc = new HashMap<>();
 
     private void GetDataYear() {
         for (Path i : findFiles("glob:**y.*.csv", "")) {
