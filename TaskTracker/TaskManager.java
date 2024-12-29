@@ -7,10 +7,9 @@ import java.util.HashMap;
 
 abstract class TaskManager {
     Map<String,ArrayList<DefaultTask>> allTasks;
-    Integer identificator;
+    static Integer identificator = 1;
 
     TaskManager() {
-        this.identificator = 1;
         this.allTasks = new HashMap<>();
         this.allTasks.put("tasks", new ArrayList<DefaultTask>());
         this.allTasks.put("epics", new ArrayList<DefaultTask>());
