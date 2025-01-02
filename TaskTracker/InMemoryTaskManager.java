@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-public class InMemoryTaskManager implements TaskManager {
+public class InMemoryTaskManager implements TaskManager, HistoryManager {
     Map<String,ArrayList<DefaultTask>> allTasks;
     static Integer identificator = 1;
     private DefaultTask[] taskHistory;
+    private int taskInHistory = 0;
 
     InMemoryTaskManager() {
         this.allTasks = new HashMap<>();
@@ -34,7 +35,8 @@ public class InMemoryTaskManager implements TaskManager {
             for (String ar : this.allTasks.keySet()) {
                 for (DefaultTask tsk : this.allTasks.get(ar)) {
                     if (tsk.identification == id) {
-                        taskHistory[taskHistory.length % 10 - 1] = tsk;
+                        this.add(tsk);
+                        System.out.println(taskHistory);
                         return tsk;
                     }
                 }
@@ -96,7 +98,14 @@ public class InMemoryTaskManager implements TaskManager {
         return epic.SubTasks;
     }
 
-    public DefaultTask[] history() {
+    @Override
+    public DefaultTask[] getHistory() {
         return this.taskHistory;
+    }
+
+    @Override
+    public void add(DefaultTask task) {
+        this.taskHistory[taskInHistory % 10] = task;
+        ++taskInHistory;
     }
 }

@@ -1,7 +1,7 @@
 package TaskTracker;
 
 public class Managers {
-    public static TaskManager getDefault() {
+    public static InMemoryTaskManager getDefault() {
         return new InMemoryTaskManager();
     }
 }
