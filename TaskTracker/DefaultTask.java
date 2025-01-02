@@ -5,12 +5,18 @@ abstract class DefaultTask {
     String name;
     String description;
     Integer identification = null;
-    String status;
+    STATUS status;
+
+    protected enum STATUS {
+        NEW,
+        IN_PROGRESS,
+        DONE
+    }
 
     DefaultTask(String name, String description) {
         this.name = name;
         this.description = description;
-        this.status = "NEW";
+        this.status = STATUS.NEW;
     }
 
     public String getName() {
@@ -33,16 +39,16 @@ abstract class DefaultTask {
         return identification;
     }
 
-    public String getStatus() {
+    public STATUS getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
-        if (status.equals("NEW") ||
-        status.equals("IN_PROGRESS") ||
-        status.equals("DONE")) {
-            this.status = status;
-        } else { throw new VerifyError("There is no such status as " + status); }
+        status = status.toUpperCase();
+        try {
+            this.status = STATUS.valueOf(status);
+        } catch (Exception e)
+        { throw new VerifyError("There is no such status as " + status); }
     }
 
     @Override

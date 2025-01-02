@@ -12,13 +12,13 @@ public class SubTask extends DefaultTask {
     @Override
     public void setStatus(String status) {
         super.setStatus(status);
-        if (status.equals("DONE")) {
+        if (this.status == STATUS.DONE) {
             boolean MainTask = true;
             for (SubTask i : this.task.SubTasks) {
-                MainTask = MainTask && (i.status.equals("DONE"));
+                MainTask = MainTask && (i.status == STATUS.DONE);
             }
             if (MainTask) {
-                this.task.status = "DONE";
+                this.task.status = STATUS.DONE;
             }
         }
     }
