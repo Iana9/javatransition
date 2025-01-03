@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-public class InMemoryTaskManager implements TaskManager, HistoryManager {
+public class InMemoryTaskManager implements TaskManager {
     Map<String,ArrayList<DefaultTask>> allTasks;
     static Integer identificator = 1;
-    private DefaultTask[] taskHistory;
-    private int taskInHistory = 0;
+    static protected InMemoryHistoryManager histManager = new InMemoryHistoryManager();
 
     InMemoryTaskManager() {
         this.allTasks = new HashMap<>();
-        this.taskHistory = new DefaultTask[10];
         this.allTasks.put("tasks", new ArrayList<DefaultTask>());
         this.allTasks.put("epics", new ArrayList<DefaultTask>());
         this.allTasks.put("subtasks", new ArrayList<DefaultTask>());
@@ -35,8 +33,7 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
             for (String ar : this.allTasks.keySet()) {
                 for (DefaultTask tsk : this.allTasks.get(ar)) {
                     if (tsk.identification == id) {
-                        this.add(tsk);
-                        System.out.println(taskHistory);
+                        histManager.add(tsk);
                         return tsk;
                     }
                 }
@@ -96,16 +93,5 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
     public ArrayList<SubTask> getSubtasks(Epic epic)
     {
         return epic.SubTasks;
-    }
-
-    @Override
-    public DefaultTask[] getHistory() {
-        return this.taskHistory;
-    }
-
-    @Override
-    public void add(DefaultTask task) {
-        this.taskHistory[taskInHistory % 10] = task;
-        ++taskInHistory;
     }
 }

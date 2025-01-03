@@ -1,6 +1,6 @@
 package TaskTracker;
 
 public interface HistoryManager {
-    public void add(DefaultTask task);
     public DefaultTask[] getHistory();
+    public void add(DefaultTask task);
 }
