@@ -1,6 +1,8 @@
 package TaskTracker;
+import java.util.List;
 
 public interface HistoryManager {
-    public DefaultTask[] getHistory();
+    public List<DefaultTask> getHistory();
     public void add(DefaultTask task);
+    public void remove(int id);
 }

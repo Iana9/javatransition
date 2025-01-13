@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class InMemoryTaskManager implements TaskManager {
     Map<String,ArrayList<DefaultTask>> allTasks;
     static Integer identificator = 1;
-    static protected InMemoryHistoryManager histManager = new InMemoryHistoryManager();
+    public InMemoryHistoryManager histManager = new InMemoryHistoryManager();
 
     InMemoryTaskManager() {
         this.allTasks = new HashMap<>();
